@@ -11,6 +11,9 @@ import (
 	"github.com/olivere/elastic" // <- should end with /v6, but missing due to compatibility reasons
 )
 
+// sem is a channel that will allow up to 10 concurrent operations.
+var sem = make(chan int, 20)
+
 func main() {
 	var (
 		url   = flag.String("url", "http://localhost:9200", "Elasticsearch URL")
@@ -42,7 +45,11 @@ func main() {
 	fmt.Println("Number of indexes: ", len(indexes))
 
 	for _, index := range indexes {
-		dailytomonthly(client, index)
+		sem <- 1
+		go func(index string) {
+			dailytomonthly(client, index)
+			<-sem
+		}(index)
 	}
 
 	//settings := client.IndexGet(indexes[len(indexes)-1])
@@ -116,8 +123,8 @@ func createindex(client *elastic.Client, index string) {
 	ctx := context.Background()
 	createIndex, err := client.CreateIndex(index).Do(ctx)
 	if err != nil {
-		// Handle error
-		panic(err)
+		fmt.Printf("Error creating index: %s", err)
+		return
 	}
 	if !createIndex.Acknowledged {
 		// Not acknowledged
@@ -151,9 +158,6 @@ func deleteindex(client *elastic.Client, index string) {
 	fmt.Printf("Index deleted: %s\n", index)
 }
 
-//add index offline function....Olaf suggests for productive regions to do that instead of deleting.
 //Count offline values afterwards instead of doing it in the migration.
-
 // Reindex docs based on field value.... Pod name starting with "swift" for example.
-
 // See if you can't do this concurrent.
