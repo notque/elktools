@@ -52,6 +52,11 @@ func main() {
 		}(index)
 	}
 
+	//Wait for all goroutines to finish
+	for i := 0; i < cap(sem); i++ {
+		sem <- 1
+	}
+
 	//settings := client.IndexGet(indexes[len(indexes)-1])
 	//fmt.Printf("settings %v", settings)
 
