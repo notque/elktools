@@ -44,21 +44,26 @@ func main() {
 	//fmt.Println(strings.Join(indexes, "\n"))
 	fmt.Println("Number of indexes: ", len(indexes))
 
-	for _, index := range indexes {
-		sem <- 1
-		go func(index string) {
-			dailytomonthly(client, index)
-			<-sem
-		}(index)
-	}
+	// for _, index := range indexes {
+	// 	sem <- 1
+	// 	go func(index string) {
+	// 		dailytomonthly(client, index)
+	// 		<-sem
+	// 	}(index)
+	// }
 
 	//Wait for all goroutines to finish
-	for i := 0; i < cap(sem); i++ {
-		sem <- 1
-	}
+	// for i := 0; i < cap(sem); i++ {
+	// 	sem <- 1
+	// }
 
 	//settings := client.IndexGet(indexes[len(indexes)-1])
 	//fmt.Printf("settings %v", settings)
+
+	//Attemping reindex of a single previous index to see if it does the right thing
+	// and takes on the new keyword fields.
+	//createindex(client, "audit-00261213cf5548e69dd5e61c6ee0ae64-2019.01.test")
+	reindex(client, "audit-00261213cf5548e69dd5e61c6ee0ae64-2019.01", "audit-00261213cf5548e69dd5e61c6ee0ae64-2019.01.test")
 
 	version, err := client.ElasticsearchVersion(*url)
 	if err != nil {
@@ -67,6 +72,8 @@ func main() {
 	fmt.Printf("Elasticsearch version %s\n", version)
 }
 
+// Change indexes from Daily to monthly type of rolling index.
+// must be changed in logstash to match.
 func dailytomonthly(client *elastic.Client, index string) {
 	if validindex(index) {
 		monindex := monthlyindex(index)
@@ -79,6 +86,8 @@ func dailytomonthly(client *elastic.Client, index string) {
 		closeindex(client, index)
 	}
 }
+
+// Need to reindex all of the indexes to take the new keyword field instead of the .raw field.
 
 func reindex(client *elastic.Client, srcindex string, dstindex string) {
 	src := elastic.NewReindexSource().Index(srcindex)
