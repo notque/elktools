@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/notque/elktools/pkg/swift"
 	"github.com/sapcc/hermes/pkg/cadf"
 )
 
@@ -13,12 +14,12 @@ func main() {
 	// fmt.Printf("domainname: %s\n", os.Getenv("OS_PROJECT_DOMAIN_NAME"))
 	// fmt.Printf("container: %s\n", os.Getenv("OS_CONTAINER"))
 	// fmt.Printf("test\n")
-	s, err := NewSwift(os.Getenv("OS_CONTAINER"))
+	s, err := swift.NewSwift(os.Getenv("OS_CONTAINER"))
 	if err != nil {
 		log.Fatalf("Failed to initialize swift backend: %s", err)
 	}
 	var events []cadf.Event
-	events, err = GetSwiftEventsJSONLines(s)
+	events, err = swift.GetSwiftEventsJSONLines(s)
 	if err != nil {
 		log.Fatalf("Failed to list contents of container: %s", err)
 	}
