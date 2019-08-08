@@ -8,9 +8,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/sapcc/hermes/pkg/cadf"
-	"github.com/wlredeye/jsonlines"
-
 	"github.com/gophercloud/gophercloud"
 	"github.com/gophercloud/gophercloud/openstack"
 	"github.com/majewsky/schwift"
@@ -35,8 +32,8 @@ func NewSwift(container string) (*Swift, error) {
 	}
 
 	if os.Getenv("OS_PROJECT_DOMAIN_NAME") != "" {
-		fmt.Printf("projectname: %s\n", os.Getenv("OS_PROJECT_NAME"))
-		fmt.Printf("os projectdomainname: %s\n", os.Getenv("OS_PROJECT_DOMAIN_NAME"))
+		//fmt.Printf("projectname: %s\n", os.Getenv("OS_PROJECT_NAME"))
+		//fmt.Printf("os projectdomainname: %s\n", os.Getenv("OS_PROJECT_DOMAIN_NAME"))
 		authOptions.Scope = &gophercloud.AuthScope{
 			ProjectName: os.Getenv("OS_PROJECT_NAME"),
 			DomainName:  os.Getenv("OS_PROJECT_DOMAIN_NAME"),
@@ -119,58 +116,25 @@ func ListContents(s *Swift) error {
 	return nil
 }
 
-func GetContentsAsString(s *Swift) error {
+func ContentsAsString(s *Swift) (string, error) {
 	iter := s.container.Objects()
 
 	iter.Prefix = "events/"
 	objects, err := iter.Collect()
 
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	for _, item := range objects {
 		str, err := item.Download(nil).AsString()
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Printf("Events: %s\n", str)
+		//fmt.Printf("Events: %s\n", str)
 
-		return nil // One file for testing
+		return str, nil // One file for testing
 	}
 
-	return nil
-}
-
-// GetContentsJSONLines converts JsonLines content from swift containers
-// providing a slice of cadf events.
-// Going to need to filter what you want before pulling...
-func GetSwiftEventsJSONLines(s *Swift) ([]cadf.Event, error) {
-	iter := s.container.Objects()
-
-	iter.Prefix = "events/"
-	objects, err := iter.Collect()
-
-	if err != nil {
-		return nil, err
-	}
-
-	var events []cadf.Event
-
-	for _, item := range objects {
-		bs, err := item.Download(nil).AsReadCloser()
-		if err != nil {
-			return nil, err
-		}
-
-		err = jsonlines.Decode(bs, &events)
-		if err != nil {
-			return nil, err
-		}
-		//fmt.Printf("Events: %+v\n\n", &events)
-
-		return events, nil // One file for testing
-	}
-
-	return events, nil
+	return "", nil
 }
