@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/tidwall/sjson"
+
 	"github.com/olivere/elastic"
 
 	"github.com/tidwall/gjson"
@@ -35,14 +37,24 @@ func main() {
 		println(line.String())
 		eventtime := line.Get("eventTime").String()
 		projectid := line.Get("initiator.project_id").String()
-		fmt.Printf("EventTime: %s\n", eventtime)
-		fmt.Printf("ProjectID: %s\n", projectid)
+		//eventtype := line.Get("type").String()
+		//fmt.Printf("EventTime: %s\n", eventtime)
+		//fmt.Printf("ProjectID: %s\n", projectid)
+		//fmt.Printf("Type: %s\n", eventtype)
+		// Change type from clone_for_swift to clone_for_audit
+		// which will catch duplicate events being loaded.
+		data := line.String()
+		eventline, err := sjson.Set(data, "type", "clone_for_audit")
+		//fmt.Printf("EventLine: %s\n", eventline)
+		if err != nil {
+			log.Fatalf("Failed to edit event: %s\n", err)
+		}
 		index := elasticsearch.CreateIndexName(projectid, eventtime)
 		fmt.Printf("IndexName: %s\n", index)
 		// Call elastisearch loading with a functional bit.
-		if 1 == 0 {
-			elasticsearch.LoadEvent(line.String(), index, es)
-		}
+		//if 1 == 0 {
+		elasticsearch.LoadEvent(eventline, index, es)
+		//}
 		return true
 	})
 }

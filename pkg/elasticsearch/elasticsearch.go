@@ -49,7 +49,7 @@ func CreateIndexIfNotExist(indexName string, es *elastic.Client) error {
 //LoadEvent loads jsonline data into ElasticSearch
 func LoadEvent(data string, index string, es *elastic.Client) {
 
-	err := CreateIndexIfNotExist("audit-test", es)
+	err := CreateIndexIfNotExist(index, es)
 	if err != nil {
 		fmt.Printf("Could not Create Index: %s", err)
 	}
@@ -81,7 +81,7 @@ func CreateIndexName(tenantID string, eventtime string) string {
 
 	if tenantID != "" {
 		//index = fmt.Sprintf("audit-%s-*", tenantID)
-		index = "audit-" + tenantID + "-" + ym
+		index = "audit-" + tenantID + "-6-" + ym
 	}
 	//fmt.Printf("Index: %s", index)
 	return index
