@@ -9,9 +9,9 @@ import (
 )
 
 // Connect to Elasticsearch
-func Connect() *elastic.Client {
+func Connect(elasticHost string) *elastic.Client {
 	// Create a client
-	client, err := elastic.NewClient(elastic.SetURL("http://127.0.0.1:9200"), elastic.SetSniff(false))
+	client, err := elastic.NewClient(elastic.SetURL(elasticHost), elastic.SetSniff(false))
 	if err != nil {
 		// Handle error
 		panic(err)
@@ -47,7 +47,7 @@ func CreateIndexIfNotExist(indexName string, es *elastic.Client) error {
 }
 
 //LoadEvent loads jsonline data into ElasticSearch
-func LoadEvent(data string, index string, es *elastic.Client) {
+func LoadEvent(data string, index string, eventType string, es *elastic.Client) {
 
 	err := CreateIndexIfNotExist(index, es)
 	if err != nil {
