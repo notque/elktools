@@ -57,7 +57,7 @@ func LoadEvent(data string, index string, eventType string, es *elastic.Client) 
 	var put1 *elastic.IndexResponse
 	put1, err = es.Index().
 		Index(index).
-		Type("doc").
+		Type(eventType).
 		BodyString(data).
 		Do(context.TODO())
 
