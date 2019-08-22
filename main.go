@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -17,13 +18,19 @@ import (
 )
 
 func main() {
+
+	// GET VARS (Check for all required OS vars)
+	var elasticHost = flag.String("elastichost", "http://localhost:9200", "target elasticsearch server")
+	var eventType = flag.String("eventType", "doc", "eventType for creating elasticsearch events")
+	flag.Parse()
+
 	s, err := swift.NewSwift(os.Getenv("OS_CONTAINER"))
 	if err != nil {
 		log.Fatalf("Failed to initialize swift backend: %s", err)
 	}
 
 	var es *elastic.Client
-	es = elasticsearch.Connect()
+	es = elasticsearch.Connect(*elasticHost)
 	if err != nil {
 		log.Fatalf("Failed to created ElasticSearch connection: %s", err)
 	}
@@ -53,7 +60,7 @@ func main() {
 		fmt.Printf("IndexName: %s\n", index)
 		// Call elastisearch loading with a functional bit.
 		//if 1 == 0 {
-		elasticsearch.LoadEvent(eventline, index, es)
+		elasticsearch.LoadEvent(eventline, index, *eventType, es)
 		//}
 		return true
 	})
