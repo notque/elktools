@@ -22,8 +22,6 @@ github.com/majewsky/schwift v0.0.0-20180906125654-e1b3d5e2efc9 h1:gEZ+rVeQ1lzzFv
 github.com/majewsky/schwift v0.0.0-20180906125654-e1b3d5e2efc9/go.mod h1:jSufaUESZRjOnLL32oE+4MjOvHnTQfuKuGsqda6oV1I=
 github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod h1:D8He9yQNgCq6Z5Ld7szi9bcBfOoFv/3dc6xSMkL2PC0=
 github.com/mitchellh/mapstructure v1.0.0/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
-github.com/notque/elktools v0.0.0-20190812211646-77edf28be4ca h1:4282qh6O61Id26x2jRA1ovEJortg7OYLMrni6vQ+5/Y=
-github.com/notque/elktools v0.0.0-20190812211646-77edf28be4ca/go.mod h1:iH3LqlRipu9jvh5QxtVc5eIIgD7JraDcBitCP9XbHks=
 github.com/olivere/elastic v6.2.22+incompatible h1:kfNhtWbbRep8LXUpHo4siKjnbqfy21BE0GwlquWx2bc=
 github.com/olivere/elastic v6.2.22+incompatible/go.mod h1:J+q1zQJTgAz9woqsbVRqGeB5G1iqDKVBWLNSYW8yfJ8=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=

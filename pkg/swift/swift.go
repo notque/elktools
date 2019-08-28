@@ -116,25 +116,11 @@ func ListContents(s *Swift) error {
 	return nil
 }
 
-func ContentsAsString(s *Swift) (string, error) {
+func GetContents(s *Swift, prefix string) ([]*schwift.Object, error) {
 	iter := s.container.Objects()
 
-	iter.Prefix = "events/"
+	iter.Prefix = prefix
 	objects, err := iter.Collect()
 
-	if err != nil {
-		return "", err
-	}
-
-	for _, item := range objects {
-		str, err := item.Download(nil).AsString()
-		if err != nil {
-			return "", err
-		}
-		//fmt.Printf("Events: %s\n", str)
-
-		return str, nil // One file for testing
-	}
-
-	return "", nil
+	return objects, err
 }
