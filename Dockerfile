@@ -1,12 +1,15 @@
-FROM golang:latest
+FROM golang:latest AS build
 
 WORKDIR /app
 
-COPY etc/ vendor/ indexes/ pkg/ utils/ /app/
-COPY go.mod go.sum main.go /app/
+COPY . .
 
 ENV GO111MODULE=on
 
-RUN go build -o elktools .
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /bin/elktools .
 
-ENTRYPOINT ["./elktools"]
+FROM alpine
+
+COPY --from=build /bin/elktools /bin/
+
+ENTRYPOINT ["/bin/elktools"]
