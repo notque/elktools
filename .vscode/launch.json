@@ -12,6 +12,15 @@
             "program": "${fileDirname}",
             "env": {},
             "args": []
+        },
+        {
+            "name": "Debug elktools",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/main.go",
+            "envFile": "/Users/i814196/testing/elktools/config.env",
+            "args": []
         }
     ]
 }

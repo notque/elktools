@@ -120,6 +120,15 @@ func GetContents(s *Swift, prefix string) ([]*schwift.Object, error) {
 	iter := s.container.Objects()
 
 	iter.Prefix = prefix
+	object, err := iter.Collect()
+
+	return object, err
+}
+
+func ContentsAsString(s *Swift) (string, error) {
+	iter := s.container.Objects()
+
+	iter.Prefix = prefix
 	objects, err := iter.Collect()
 
 	return objects, err

@@ -1,0 +1,41 @@
+# github.com/databus23/goslo.policy v0.0.0-20170317131957-3ae74dd07ebf
+github.com/databus23/goslo.policy
+# github.com/gofrs/uuid v3.1.0+incompatible
+github.com/gofrs/uuid
+# github.com/gophercloud/gophercloud v0.4.0
+github.com/gophercloud/gophercloud
+github.com/gophercloud/gophercloud/openstack
+github.com/gophercloud/gophercloud/openstack/identity/v2/tenants
+github.com/gophercloud/gophercloud/openstack/identity/v2/tokens
+github.com/gophercloud/gophercloud/openstack/identity/v3/tokens
+github.com/gophercloud/gophercloud/openstack/utils
+github.com/gophercloud/gophercloud/pagination
+# github.com/jpillora/longestcommon v0.0.0-20161227235612-adb9d91ee629
+github.com/jpillora/longestcommon
+# github.com/mailru/easyjson v0.0.0-20180730094502-03f2033d19d5
+github.com/mailru/easyjson
+github.com/mailru/easyjson/buffer
+github.com/mailru/easyjson/jlexer
+github.com/mailru/easyjson/jwriter
+# github.com/majewsky/schwift v0.0.0-20180906125654-e1b3d5e2efc9
+github.com/majewsky/schwift
+github.com/majewsky/schwift/capabilities
+github.com/majewsky/schwift/gopherschwift
+# github.com/olivere/elastic v6.2.23+incompatible
+github.com/olivere/elastic
+github.com/olivere/elastic/config
+github.com/olivere/elastic/uritemplates
+# github.com/pkg/errors v0.8.0
+github.com/pkg/errors
+# github.com/sapcc/go-bits v0.0.0-20180828115508-ed29938ce01c
+github.com/sapcc/go-bits/gopherpolicy
+# github.com/sapcc/hermes v0.0.0-20190820205231-815ea51fb66a
+github.com/sapcc/hermes/pkg/cadf
+# github.com/tidwall/gjson v1.3.2
+github.com/tidwall/gjson
+# github.com/tidwall/match v1.0.1
+github.com/tidwall/match
+# github.com/tidwall/pretty v1.0.0
+github.com/tidwall/pretty
+# github.com/tidwall/sjson v1.0.4
+github.com/tidwall/sjson

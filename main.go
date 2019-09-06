@@ -37,6 +37,23 @@ func main() {
 		log.Fatalf("Failed to created ElasticSearch connection: %s", err)
 	}
 
+	// var events string
+	// events, err = swift.ContentsAsString(s)
+	// if err != nil {
+	// 	log.Fatalf("Failed to list contents of container: %s", err)
+	// }
+	var swiftObjects []*schwift.Object
+	swiftObjects, err = swift.GetContents(s, "events/")
+	if err != nil {
+		log.Fatalf("failed to get contents of swift container")
+	}
+
+	for _, item := range swiftObjects {
+		str, err := item.Download(nil).AsString()
+		if err != nil {
+			log.Fatalf("couldn't download a swift file")
+		}
+
 	var files *[]schwift.Object
 	files, err = swift.GetContents(s, "hermes/")
 	if err != nil {
