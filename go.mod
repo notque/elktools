@@ -3,7 +3,6 @@ module github.com/notque/elktools
 go 1.13
 
 require (
-	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/gophercloud/gophercloud v0.4.0
 	github.com/jpillora/longestcommon v0.0.0-20161227235612-adb9d91ee629 // indirect
 	github.com/majewsky/schwift v0.0.0-20180906125654-e1b3d5e2efc9

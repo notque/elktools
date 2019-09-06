@@ -37,7 +37,7 @@ func main() {
 		log.Fatalf("Failed to created ElasticSearch connection: %s", err)
 	}
 
-	var files *[]schwift.Object
+	var files []*schwift.Object
 	files, err = swift.GetContents(s, "events/")
 	if err != nil {
 		log.Fatalf("failed to get contents of container: %s", err)
