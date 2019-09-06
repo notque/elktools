@@ -13,6 +13,7 @@ import (
 	"github.com/tidwall/gjson"
 
 	"github.com/majewsky/schwift"
+
 	"github.com/notque/elktools/pkg/elasticsearch"
 	"github.com/notque/elktools/pkg/swift"
 	"github.com/sapcc/hermes/pkg/cadf"
@@ -53,6 +54,18 @@ func main() {
 			log.Fatalf("couldn't download a swift file")
 		}
 
+	var files *[]schwift.Object
+	files, err = swift.GetContents(s, "hermes/")
+	if err != nil {
+		log.Fatalf("failed to get contents of container: %s", err)
+	}
+
+	for _, item := range files {
+		str, err := item.Download(nil).AsString()
+		if err != nil {
+			log.Fatalf("failed to download a swift file")
+		}
+		//fmt.Printf("Events: %s\n", str)
 		gjson.ForEachLine(str, func(line gjson.Result) bool {
 			println(line.String())
 			eventtime := line.Get("eventTime").String()
