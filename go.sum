@@ -2,11 +2,14 @@ github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24
 github.com/databus23/goslo.policy v0.0.0-20170317131957-3ae74dd07ebf h1:9V+7mLoEGsdQRnHH7idSfsNcvYFBF3y41AgK3r6whzA=
 github.com/databus23/goslo.policy v0.0.0-20170317131957-3ae74dd07ebf/go.mod h1:l9nkDMRWNXo519AKv09j14YhyHW1YsAKAa1kG6R1p3Y=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/fortytw2/leaktest v1.2.0 h1:cj6GCiwJDH7l3tMHLjZDo0QqPtrXJiWSI9JgpeQKw+Q=
 github.com/fortytw2/leaktest v1.2.0/go.mod h1:jDsjWgpAGjm2CA7WthBh/CdZYEPF31XHquHwclZch5g=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/gofrs/uuid v3.1.0+incompatible h1:q2rtkjaKT4YEr6E1kamy0Ha4RtepWlQBedyHx0uzKwA=
 github.com/gofrs/uuid v3.1.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
+github.com/google/go-cmp v0.3.1 h1:Xye71clBPdm5HgqGwUkwhbynsUJZhDbS20FvLhQ2izg=
+github.com/google/go-cmp v0.3.1/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
 github.com/gophercloud/gophercloud v0.0.0-20181019014921-0719c6b22f30 h1:+150LEnnwtkfkSEIaMF/3tRxrq1giMi56N912kCMDHw=
 github.com/gophercloud/gophercloud v0.0.0-20181019014921-0719c6b22f30/go.mod h1:3WdhXV3rUYy9p6AUW8d94kr+HS62Y4VL9mBnFxsD8q4=
 github.com/gorilla/context v1.1.1/go.mod h1:kBGZzfjB9CEq2AlWe17Uuf7NDRt0dE0s8S51q0aT7Yg=
@@ -22,8 +25,6 @@ github.com/majewsky/schwift v0.0.0-20180906125654-e1b3d5e2efc9 h1:gEZ+rVeQ1lzzFv
 github.com/majewsky/schwift v0.0.0-20180906125654-e1b3d5e2efc9/go.mod h1:jSufaUESZRjOnLL32oE+4MjOvHnTQfuKuGsqda6oV1I=
 github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod h1:D8He9yQNgCq6Z5Ld7szi9bcBfOoFv/3dc6xSMkL2PC0=
 github.com/mitchellh/mapstructure v1.0.0/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
-github.com/notque/elktools v0.0.0-20190812211646-77edf28be4ca h1:4282qh6O61Id26x2jRA1ovEJortg7OYLMrni6vQ+5/Y=
-github.com/notque/elktools v0.0.0-20190812211646-77edf28be4ca/go.mod h1:iH3LqlRipu9jvh5QxtVc5eIIgD7JraDcBitCP9XbHks=
 github.com/olivere/elastic v6.2.22+incompatible h1:kfNhtWbbRep8LXUpHo4siKjnbqfy21BE0GwlquWx2bc=
 github.com/olivere/elastic v6.2.22+incompatible/go.mod h1:J+q1zQJTgAz9woqsbVRqGeB5G1iqDKVBWLNSYW8yfJ8=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
