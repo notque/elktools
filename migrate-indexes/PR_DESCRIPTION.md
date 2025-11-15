@@ -36,7 +36,7 @@ The tool intelligently extracts OpenStack project IDs by removing date suffixes:
 
 Pattern matching removes:
 - `-YYYY.MM` (date suffix)
-- `-N-YYYY.MM` (version + date suffix, where N is a single digit)
+- `-N-YYYY.MM` (version + date suffix, where N is 1-2 digits)
 
 ### Testing Infrastructure
 
