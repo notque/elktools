@@ -44,7 +44,11 @@ fi
 
 # Get cluster info
 echo -e "\n${GREEN}Cluster Info:${NC}"
-curl -s http://localhost:9200 | head -n 20
+if command -v jq &> /dev/null; then
+    curl -s http://localhost:9200 | jq '.'
+else
+    curl -s http://localhost:9200
+fi
 
 # Run unit tests
 echo -e "\n${GREEN}Running unit tests...${NC}"
