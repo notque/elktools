@@ -284,7 +284,8 @@ func testCopyDocuments(ctx context.Context, client *elastic.Client) func(*testin
 		time.Sleep(1 * time.Second)
 
 		// Copy documents
-		copied, err := copyDocuments(ctx, client, sourceIndex, targetIndex, tenantID)
+		stats := &MigrationStats{}
+		copied, err := copyDocuments(ctx, client, sourceIndex, targetIndex, tenantID, DefaultBatchSize, DefaultWorkers, DefaultScrollSize, stats)
 		if err != nil {
 			t.Fatalf("copyDocuments() error: %v", err)
 		}
@@ -405,9 +406,10 @@ func testEndToEndMigration(ctx context.Context, client *elastic.Client) func(*te
 		time.Sleep(2 * time.Second)
 
 		// Migrate all indexes
+		stats := &MigrationStats{}
 		migratedDocs := 0
 		for indexName, tenantID := range sourceIndexes {
-			copied, err := copyDocuments(ctx, client, indexName, targetIndex, tenantID)
+			copied, err := copyDocuments(ctx, client, indexName, targetIndex, tenantID, DefaultBatchSize, DefaultWorkers, DefaultScrollSize, stats)
 			if err != nil {
 				t.Fatalf("Failed to copy documents from %s: %v", indexName, err)
 			}
