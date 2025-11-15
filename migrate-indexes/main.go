@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"regexp"
 	"strings"
 	"time"
 
@@ -19,6 +20,12 @@ const (
 	ScrollSize = 1000
 	// ScrollTimeout for scroll context
 	ScrollTimeout = "5m"
+)
+
+var (
+	// dateSuffixPattern matches date patterns like "-2024.01" or "-6-2024.01" at the end of index names
+	// Single digit version (e.g., -6-YYYY.MM) or just date (e.g., -YYYY.MM)
+	dateSuffixPattern = regexp.MustCompile(`-\d-\d{4}\.\d{2}$|-\d{4}\.\d{2}$`)
 )
 
 func main() {
@@ -125,8 +132,10 @@ func getMatchingIndexes(ctx context.Context, client *elastic.Client, pattern str
 	return indexNames, nil
 }
 
-// extractTenantID extracts the tenant ID from an index name by removing the prefix
-// For example: "audit-abc123-2024.01" -> "abc123-2024.01"
+// extractTenantID extracts the tenant ID (OpenStack project ID) from an index name
+// by removing the prefix and any date suffix.
+// For example: "audit-abc123-2024.01" -> "abc123"
+// For example: "audit-abc123-6-2024.01" -> "abc123"
 func extractTenantID(indexName, prefix string) (string, error) {
 	if !strings.HasPrefix(indexName, prefix) {
 		return "", fmt.Errorf("index %s does not have prefix %s", indexName, prefix)
@@ -135,6 +144,13 @@ func extractTenantID(indexName, prefix string) (string, error) {
 	tenantID := strings.TrimPrefix(indexName, prefix)
 	if tenantID == "" {
 		return "", fmt.Errorf("tenant ID is empty after removing prefix")
+	}
+
+	// Remove date suffix patterns like "-2024.01" or "-6-2024.01"
+	tenantID = dateSuffixPattern.ReplaceAllString(tenantID, "")
+
+	if tenantID == "" {
+		return "", fmt.Errorf("tenant ID is empty after removing date suffix")
 	}
 
 	return tenantID, nil

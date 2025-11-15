@@ -52,10 +52,17 @@ go run main.go \
 
 ## Migration Process
 
-For an index named `audit-tenant123-2024.01`:
-1. Extracts tenant ID: `tenant123-2024.01`
+The tool extracts the OpenStack project ID from index names by removing the prefix and any date suffix.
+
+**Examples:**
+- `audit-tenant123-2024.01` → tenant ID: `tenant123`
+- `audit-abc-def-123-456-789-2024.01` → tenant ID: `abc-def-123-456-789`
+- `audit-project456-6-2024.11` → tenant ID: `project456`
+
+**Migration Steps:**
+1. Extracts tenant ID (OpenStack project ID) from index name
 2. Reads all documents using scroll API
-3. Adds `tenant_ids: ["tenant123-2024.01"]` to each document
+3. Adds `tenant_ids: ["<project_id>"]` to each document
 4. Bulk indexes to target index (default: `hermes`)
 
 ## Document Structure
@@ -72,12 +79,14 @@ For an index named `audit-tenant123-2024.01`:
 ### After Migration
 ```json
 {
-  "tenant_ids": ["tenant123-2024.01"],
+  "tenant_ids": ["tenant123"],
   "@timestamp": "2024-01-15T10:30:00Z",
   "action": "create",
   "outcome": "success"
 }
 ```
+
+**Note:** The `tenant_ids` field contains the OpenStack project ID without the date suffix from the index name.
 
 ## Performance
 
